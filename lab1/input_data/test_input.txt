@@ -1,0 +1,13 @@
+LINEAR
+a: 5
+c_linear: 4
+
+BRANCHED
+x: 4
+k: 4
+c_branched: 4
+b: 4
+
+CYCLICAL
+a_set: 3, 4, 5, 6
+n: 4

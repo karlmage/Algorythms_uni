@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter.ttk import *
 from functions import *
+from variable_upload import *
 
 def get_set(set_var):
     try:
-        return list([int(i) for i in set_var.get().split(', ', ',')])
+        return list([int(i) for i in set_var.get().split(', ')])
     except ValueError:
         set_var.set("")
 
@@ -32,6 +33,10 @@ if __name__ == '__main__':
         cyclical_result.set(f"{cyclical(a_cyclical, n_cyclical):.2f}")
         return
 
+    def upload_values():
+        for i in range(len(var_list)):
+            var_list[i].set(var_search(file_name.get(), var_name_list[i]))
+
     a = IntVar()
     c_linear = IntVar()
 
@@ -46,6 +51,10 @@ if __name__ == '__main__':
     linear_result = StringVar()
     branched_result = StringVar()
     cyclical_result = StringVar()
+
+    file_name = StringVar()
+    var_list = [a, c_linear, x, k, c_branched, b, a_set, n]
+    var_name_list = ['a', 'c_linear', 'x', 'k', 'c_branched', 'b', 'a_set', 'n']
 
     Label(root, text="Значення змінних").grid(row=0, column=3)
 
@@ -75,5 +84,9 @@ if __name__ == '__main__':
     Entry(root, textvariable=linear_result).grid(row=4, column=1)
     Entry(root, textvariable=branched_result).grid(row=4, column=3)
     Entry(root, textvariable=cyclical_result).grid(row=4, column=7)
+
+    Label(root, text="Файл:").grid(row=5, column=0)
+    Entry(root, textvariable=file_name).grid(row=5, column=1)
+    Button(root, text="Upload", command=upload_values).grid(row=5, column=3)
 
     root.mainloop()
