@@ -2,8 +2,8 @@
 
 def interpolate_dot(x: float, dots: dict) -> float:
     sum = 0.0
-    multiplier = 1.0
     for j in range(len(dots)):
+        multiplier = 1.0
         for i in range(len(dots)):
             if i == j:
                 continue
