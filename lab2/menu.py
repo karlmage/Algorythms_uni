@@ -59,11 +59,11 @@ if __name__ == '__main__':
 
     Entry(root, textvariable=values_set).grid(row=1, column=0)
     Button(root, text="Зберегти масив", command=save_set).grid(row=1, column=1)
-    Button(root, text="Очистити масиви", command=clean_sets).grid(row=1, column=1)
+    Button(root, text="Очистити масиви", command=clean_sets).grid(row=1, column=2)
 
     Label(root, text="Назва файлу:").grid(row=2, column=0)
     Entry(root, textvariable=file_name).grid(row=2, column=1)
-    Button(root, text="Завантажити масиви", command=upload_sets).grid(row=2, column=3)
+    Button(root, text="Завантажити масиви", command=upload_sets).grid(row=2, column=2)
 
     Button(root, text="Сортувати", command=run_sorting).grid(row=3, column=0)
 
