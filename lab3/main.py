@@ -1,5 +1,5 @@
 from interpolate_function import interpolate_function, find_dots
-from error_calculation import max_error
+from error_calculation import max_exec_error
 from given_function import p
 # from math import sin
 
@@ -8,9 +8,9 @@ def main():
     a, b = 0, 2
     function = find_dots(p, a, b)
 
-    for i in range(3, 10):
-        interpolated_function = interpolate_function(p, a, b, i)
-        errors[i] = max_error(function, interpolated_function)
+    for i in range(3, 11):
+        interpolated_function = interpolate_function(p, a, b, i, None, True)
+        errors[i] = max_exec_error(function, interpolated_function)
 
     for error in errors:
         print(f"{error}: {errors[error]}")
