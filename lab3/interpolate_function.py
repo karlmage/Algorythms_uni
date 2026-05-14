@@ -15,8 +15,8 @@ def find_knots(p, a: int, b: int, i = 10, adjust = False) -> dict:
         a+=step
 
     dots = {}
-    for i in x_vals:
-        dots[i] = p(i)
+    for k in x_vals:
+        dots[k] = p(k)
 
     return dots
 

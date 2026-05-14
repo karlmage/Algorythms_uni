@@ -1,5 +1,6 @@
 from interpolate_function import interpolate_function
-from lab3.interpolate_function import find_knots
+from lab3.interpolate_function import find_knots, find_dots
+from random import randint
 
 # Lagrange error
 def knot_multiplier(x: float, xk_vals: list) -> float:
@@ -41,5 +42,29 @@ def exec_error(p:dict, l: dict):
 def max_exec_error(p:dict, l: dict):
     return max(exec_error(p, l))
 
-def error_of_error_calculation(exec_error: list, lagrange_error: dict):
-    ...
+def error_accuracy(p, a, b, n = 3):
+    pn = interpolate_function(p, a, b, n)
+    x_vals = list(pn.keys())
+    error_accuracy = {}
+
+    for x in x_vals:
+        delta_n = pn[x] - interpolate_function(p, a, b, n + 1)[x]
+        delta_delta_n = interpolate_function(p, a, b, n + 1)[x] - interpolate_function(p, a, b, n + 2)[x]
+        error_accuracy[x] = abs(delta_delta_n / delta_n)
+
+    return error_accuracy
+
+def error_table(p, a, b, n = 5):
+    pn = interpolate_function(p, a, b, n)
+    x_vals = list(pn.keys())
+    x_index = randint(0, n - 1)
+
+    lagrange_error_ = lagrange_error(p, a, b, n)
+    table_n = lagrange_error_[x_vals[x_index]]
+
+    delta_n = pn[x_vals[x_index]] - interpolate_function(p, a, b, n + 1)[x_vals[x_index]]
+    exec_delta = p(x_vals[x_index]) - interpolate_function(p, a, b, n)[x_vals[x_index]]
+
+    k = 1 - exec_delta / delta_n
+    return (f"n |n| exec_delta_n |k|\n"
+            f"{n} |{table_n}| {exec_delta} |{k}|")
