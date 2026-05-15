@@ -21,7 +21,11 @@ def lagrange_error(p, a, b, i = 10):
     for x in x_vals:
         p1_multiplier = knot_multiplier(x, list(knots1.keys()))
         p2_multiplier = knot_multiplier(x, list(knots2.keys()))
-        error = (p1.get(x) * p2_multiplier - p2.get(x) * p1_multiplier)/(p2_multiplier - p1_multiplier)
+        if p1_multiplier == 0 or p2_multiplier == 0:
+            error = 0
+        else:
+            error = ((p1.get(x) * p2_multiplier - p2.get(x) * p1_multiplier)/
+                                (p2_multiplier - p1_multiplier))
         lagrange_error_values[x] = error
 
     return lagrange_error_values
@@ -45,14 +49,20 @@ def max_exec_error(p:dict, l: dict):
 def error_accuracy(p, a, b, n = 3):
     pn = interpolate_function(p, a, b, n)
     x_vals = list(pn.keys())
-    error_accuracy = {}
+    error_accuracy_ = {}
 
     for x in x_vals:
         delta_n = pn[x] - interpolate_function(p, a, b, n + 1)[x]
         delta_delta_n = interpolate_function(p, a, b, n + 1)[x] - interpolate_function(p, a, b, n + 2)[x]
-        error_accuracy[x] = abs(delta_delta_n / delta_n)
+        if delta_n == 0:
+            error_accuracy_[x] = 0
+        else:
+            error_accuracy_[x] = abs(delta_delta_n / delta_n)
 
-    return error_accuracy
+    return error_accuracy_
+
+def min_error_accuracy(p, a, b, n = 3):
+    return max(list(error_accuracy(p, a, b, n).values()))
 
 def error_table(p, a, b, n = 5):
     pn = interpolate_function(p, a, b, n)
@@ -65,6 +75,9 @@ def error_table(p, a, b, n = 5):
     delta_n = pn[x_vals[x_index]] - interpolate_function(p, a, b, n + 1)[x_vals[x_index]]
     exec_delta = p(x_vals[x_index]) - interpolate_function(p, a, b, n)[x_vals[x_index]]
 
-    k = 1 - exec_delta / delta_n
+    if delta_n == 0:
+        k = 0
+    else:
+        k = 1 - exec_delta / delta_n
     return (f"n |n| exec_delta_n |k|\n"
             f"{n} |{table_n}| {exec_delta} |{k}|")

@@ -8,7 +8,7 @@ def find_knots(p, a: int, b: int, i = 10, adjust = False) -> dict:
     x_vals = []
     step = float((b - a)/i)
     if adjust:
-        step -= step / 4
+        step += step
 
     while a <= b:
         x_vals.append(a)
