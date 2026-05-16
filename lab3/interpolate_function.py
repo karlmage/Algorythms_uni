@@ -1,4 +1,4 @@
-graph_steps_count = 40
+graph_steps_count = 120
 
 def find_dots(p, a: int, b: int) -> dict:
     global graph_steps_count

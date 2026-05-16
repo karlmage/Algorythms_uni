@@ -61,7 +61,7 @@ def error_accuracy(p, a, b, n = 3):
 
     return error_accuracy_
 
-def min_error_accuracy(p, a, b, n = 3):
+def max_error_accuracy(p, a, b, n = 5):
     return max(list(error_accuracy(p, a, b, n).values()))
 
 def error_table(p, a, b, n = 5):
